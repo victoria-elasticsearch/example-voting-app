@@ -47,6 +47,13 @@ services:
     networks:
       - back-tier
 
+  es-metricbeat:
+    build:
+      context: ./elastic/metricbeat
+      args:
+        ES_VERSION: ${ES_VERSION}
+      
+
 volumes:
   db-data:
 
