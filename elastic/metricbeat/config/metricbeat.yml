@@ -7,7 +7,15 @@ metricbeat.config:
 metricbeat.autodiscover:
   providers:
     - type: docker
-      hints.enabled: true
+      labels.dedot: true
+      templates:
+        - condition:
+            contains:
+              docker.container.image: redis
+          config:
+            - module: redis
+              metricsets: ["info", "keyspace"]
+              hosts: "${data.host}:${data.port}"
 
 metricbeat.modules:
 - module: docker
@@ -23,6 +31,7 @@ metricbeat.modules:
   hosts: ["unix:///var/run/docker.sock"]
   period: 10s
   enabled: true
+  
 
 processors:
   - add_cloud_metadata: ~
