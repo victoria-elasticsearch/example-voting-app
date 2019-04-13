@@ -16,6 +16,17 @@ metricbeat.autodiscover:
             - module: redis
               metricsets: ["info", "keyspace"]
               hosts: "${data.host}:${data.port}"
+        - condition:
+            contains:
+              docker.container.image: db
+          config:
+            - module: postgresql
+              metricsets: [database, bgwriter, activity]
+              period: 10s
+              hosts: ["postgres://${data.host}:${data.port}?sslmode=disable"]
+              username: ${PG_USER}
+              password: ${PG_PASSWORD}
+
 
 metricbeat.modules:
 - module: docker
