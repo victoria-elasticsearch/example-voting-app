@@ -46,12 +46,18 @@ services:
       - back-tier
 
   db:
-    image: postgres:9.4
+    build:
+      context: ./postgres
+      labels:
+        co.elastic.metrics/hosts: "db"
+        co.elastic.metrics/port: "5432"
     container_name: db
     volumes:
       - "db-data:/var/lib/postgresql/data"
     networks:
       - back-tier
+    ports:
+      - "5432:5432"
 
   es-metricbeat:
     build:
@@ -62,6 +68,8 @@ services:
       - ES_CLOUD_ID=${ES_CLOUD_ID}
       - ES_USERNAME=${ES_USERNAME}
       - ES_PASSWORD=${ES_PASSWORD}
+      - PG_USER=${PG_USER}
+      - PG_PASSWORD=${PG_PASSWORD}
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
     networks:
