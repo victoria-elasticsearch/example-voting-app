@@ -17,9 +17,11 @@ The app will be running at [http://localhost:5000](http://localhost:5000), and t
 
 ## Adding MetricBeat
 
-[Running metricbeat on docker](https://www.elastic.co/guide/en/beats/metricbeat/6.7/running-on-docker.html)
+[Running metricbeat on docker](https://www.elastic.co/guide/en/beats/metricbeat/master/running-on-docker.html)
 
 ## Configuring MetricBeat for monitoring docker
+
+[Docker Module](https://www.elastic.co/guide/en/beats/metricbeat/master/metricbeat-module-docker.html)
 
 In .env set the folowing values:
 
@@ -33,3 +35,7 @@ What to look:
 
 * `docker-compose.yml` has a volume mounted to docker.sock
 * `elastic/metricbeat/config/metricbeat.yml` is set with the cloud configuration and the dashboard setup
+
+## Configuring MetricBeat to monitor Redis
+
+[Redis Module](https://www.elastic.co/guide/en/beats/metricbeat/master/metricbeat-module-redis.html)
