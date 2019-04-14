@@ -86,12 +86,14 @@ services:
       - ES_PASSWORD=${ES_PASSWORD}
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "/var/lib/docker:/var/lib/docker:ro"
     networks:
       - back-tier
     
       
 volumes:
   db-data:
+  container-logs:
 
 networks:
   front-tier:
