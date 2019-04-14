@@ -74,10 +74,26 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
     networks:
       - back-tier
+
+  es-filebeat:
+    build:
+      context: ./elastic/filebeat
+      args:
+        ES_VERSION: ${ES_VERSION}
+    environment: 
+      - ES_CLOUD_ID=${ES_CLOUD_ID}
+      - ES_USERNAME=${ES_USERNAME}
+      - ES_PASSWORD=${ES_PASSWORD}
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "/var/lib/docker:/var/lib/docker:ro"
+    networks:
+      - back-tier
     
       
 volumes:
   db-data:
+  container-logs:
 
 networks:
   front-tier:

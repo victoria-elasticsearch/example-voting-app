@@ -39,3 +39,8 @@ What to look:
 ## Configuring MetricBeat to monitor Redis
 
 [Redis Module](https://www.elastic.co/guide/en/beats/metricbeat/master/metricbeat-module-redis.html)
+
+## Configure Postgres Monitoring
+
+[Postgres metricbeat module](https://www.elastic.co/guide/en/beats/metricbeat/current/metricbeat-module-postgresql.html)
+[Postgres filebeat module]
