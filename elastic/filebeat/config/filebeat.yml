@@ -22,7 +22,7 @@ filebeat.autodiscover:
 processors:
 - add_cloud_metadata: ~
 
-# setup.dashboards.enabled: true
+setup.dashboards.enabled: true
 
 cloud.id: "${ES_CLOUD_ID}"
 cloud.auth: "${ES_USERNAME}:${ES_PASSWORD}"
