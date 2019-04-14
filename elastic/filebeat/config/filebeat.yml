@@ -18,6 +18,20 @@ filebeat.autodiscover:
                   type: docker
                   containers.ids:
                     - "${data.docker.container.id}"
+        - condition:
+            contains:
+              docker.container.image: redis
+          config:
+            - module: redis
+              log:
+                enabled: true
+                input:
+                  type: docker
+                  containers.ids:
+                    - "${data.docker.container.id}"
+              slowlog:
+                enabled: true
+                var.hosts: ["${data.host}:${data.port}"]
 
 processors:
 - add_cloud_metadata: ~
