@@ -1,0 +1,25 @@
+filebeat.config:
+  modules:
+    path: ${path.config}/modules.d/*.yml
+    reload.enabled: false
+
+filebeat.autodiscover:
+  providers:
+    - type: docker
+      labels.dedot: true
+      templates:
+        - condition:
+            or:
+              - contains:
+                  docker.container.image: worker
+              - contains:
+                  docker.container.image: vote
+              - contains:
+                  docker.container.image: result
+          config:
+            - type: docker
+              containers.ids:
+                - "${data.docker.container.id}"
+
+output.logstash:
+  hosts: ["es-logstash:5044"]
