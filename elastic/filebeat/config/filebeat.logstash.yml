@@ -9,12 +9,17 @@ filebeat.autodiscover:
       labels.dedot: true
       templates:
         - condition:
-            contains:
-              docker.container.image: worker
+            or:
+              - contains:
+                  docker.container.image: worker
+              - contains:
+                  docker.container.image: vote
+              - contains:
+                  docker.container.image: result
           config:
             - type: docker
               containers.ids:
                 - "${data.docker.container.id}"
 
-output.console:
-  pretty: true
+output.logstash:
+  hosts: ["es-logstash:5044"]
