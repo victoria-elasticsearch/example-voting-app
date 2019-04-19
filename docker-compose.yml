@@ -123,7 +123,19 @@ services:
       - ES_PASSWORD=${ES_PASSWORD}
     networks:
       - back-tier
-    
+  
+  es-packetbeat:
+    build:
+      context: ./elastic/packetbeat
+      args:
+        ES_VERSION: ${ES_VERSION}
+    environment: 
+      - ES_CLOUD_ID=${ES_CLOUD_ID}
+      - ES_USERNAME=${ES_USERNAME}
+      - ES_PASSWORD=${ES_PASSWORD}
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
       
 volumes:
   db-data:
