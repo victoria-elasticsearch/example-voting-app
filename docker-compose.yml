@@ -2,7 +2,10 @@ version: "3.3"
 
 services:
   vote:
-    build: ./vote
+    build: 
+      context: ./vote
+      labels:
+        elastic.victoria/app: "catvsdog"
     command: python app.py
     volumes:
      - ./vote:/app
@@ -13,7 +16,10 @@ services:
       - back-tier
 
   result:
-    build: ./result
+    build: 
+      context: ./result
+      labels:
+        elastic.victoria/app: "catvsdog"
     command: nodemon server.js
     volumes:
       - ./result:/app
@@ -27,6 +33,8 @@ services:
   worker:
     build:
       context: ./worker
+      labels:
+        elastic.victoria/app: "catvsdog"
     depends_on:
       - "redis"
     networks:
@@ -38,6 +46,7 @@ services:
       labels:
         co.elastic.metrics/hosts: "redis"
         co.elastic.metrics/port: "6379"
+        elastic.victoria/app: "catvsdog"
     container_name: redis
     depends_on:
       - "es-metricbeat"
@@ -51,6 +60,7 @@ services:
       labels:
         co.elastic.metrics/hosts: "db"
         co.elastic.metrics/port: "5432"
+        elastic.victoria/app: "catvsdog"
     container_name: db
     volumes:
       - "db-data:/var/lib/postgresql/data"
